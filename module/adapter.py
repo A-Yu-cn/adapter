@@ -31,11 +31,11 @@ class Adapter(Resource):
                 "isAtAll": 'true'
             }
         }
-        text = "**代码推送通知** \n  - {name} 推送到了 {repository} / {branch} 分支 \n  - commits:{commit_info} {commit_time}".format(
+        text = "**代码推送通知** \n  - {name} 推送到了 {repository} / {branch} 分支 \n  - commits:{commit_info} at {commit_time}".format(
             name=name, repository=repository, branch=branch, commit_time=commit_time, commit_info=commit_info)
         user_data["markdown"]["text"] = text
         # 暂时屏蔽推送到钉钉，部署服务器测试华为云平台发送消息是否正常
-        # Sender.post(user_data)
+        Sender.post(user_data)
         print(text)
         return {
             "result": "ok"

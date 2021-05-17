@@ -58,5 +58,6 @@ post_data = {
     }
 }
 if __name__ == "__main__":
-    res = requests.post(url="http://127.0.0.1:666//api/webhook", data=post_data)
+    url = "http://127.0.0.1:666/api/webhook"
+    res = requests.post(url=url, json=post_data)
     print(res.text)
