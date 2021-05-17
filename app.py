@@ -10,4 +10,4 @@ api.add_resource(Adapter, '/api/webhook')
 
 if __name__ == '__main__':
     # 在某一端口运行程序
-    app.run(port=666, debug=True)
+    app.run(port=666, debug=True,host="0.0.0.0")
