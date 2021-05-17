@@ -1,11 +1,10 @@
 from module.send import Sender
-import json
 
 data = {
     "msgtype": "markdown",
     "markdown": {
         "title": "代码检测",
-        "text": "# push test message \n - test \n -test too \n "
+        "text": ""
     },
     "at": {
         "isAtAll": 'true'
@@ -21,5 +20,7 @@ data1 = {
     "msgtype": "text"
 }
 if __name__ == "__main__":
-    sender = Sender()
-    sender.post(data)
+    text = "**代码推送通知** \n  - {name} 推送到了 {repository} / {branch} 分支 \n  - commits:{commit_info} {commit_time}".format(
+        name="ayu", repository="fronted", branch="test", commit_time="", commit_info="别看了，这是测试信息")
+    data["markdown"]["text"] = text
+    Sender.post(data)
