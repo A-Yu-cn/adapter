@@ -8,7 +8,8 @@ class Sender:
     def post(cls, msg):
         try:
             r = requests.post(cls.url, json=msg)
-            print(r.content)
-            print(r.status_code)
+            # print(r.content)
+            # print(r.status_code)
         except():
-            print("post error!!")
+            pass
+            # print("post error!!")
