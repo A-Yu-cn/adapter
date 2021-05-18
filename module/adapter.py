@@ -25,8 +25,12 @@ class Adapter(Resource):
             # 设置默认返回信息
             data = json.loads(request.data)
             branch = data.get("ref").split("/")[-1]
-            repository = data.get("repository").get("name")
-            repository_url = data.get("repository").get("git_http_url")
+            try:
+                repository = data.get("repository").get("name")
+                repository_url = data.get("repository").get("git_http_url")
+            except():
+                repository = "None"
+                repository_url = "https://12138.site/"
             # print(data)
             name = data.get("user_username")
             # 避免华为云平台推送的请求不符合规范导致以下字段为空
@@ -35,7 +39,7 @@ class Adapter(Resource):
             if isinstance(commits, list):
                 for commit in commits:
                     commits_info.append({
-                        "message": commit.get("message")[:10],
+                        "message": commit.get("message")[:25] + "...",
                         "url": commit.get("url")
                     })
             # 此下定义要返回给钉钉的信息
