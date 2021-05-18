@@ -1,6 +1,10 @@
 from flask import Flask
 from module.adapter import Adapter
 from flask_restful import Api
+from dotenv import find_dotenv, load_dotenv
+import os
+
+load_dotenv(find_dotenv(), encoding="utf8")
 
 app = Flask(__name__)
 api = Api(app)
@@ -10,4 +14,6 @@ api.add_resource(Adapter, '/api/webhook')
 
 if __name__ == '__main__':
     # 在某一端口运行程序
-    app.run(port=666, debug=True, host="0.0.0.0")
+    port = os.environ.get("PORT")
+    host = os.environ.get("HOST")
+    app.run(port=port, host=host)
