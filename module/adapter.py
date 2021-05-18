@@ -23,16 +23,13 @@ class Adapter(Resource):
     def post(self):
         try:
             # 设置默认返回信息
-            repository = "未指定"
-            branch = "未指定"
             data = json.loads(request.data)
+            branch = data.get("ref").split("/")[-1]
+            repository = data.get("repository").get("name")
+            repository_url = data.get("repository").get("git_http_url")
             # print(data)
             name = data.get("user_name")
-            project = data.get("project")
             # 避免华为云平台推送的请求不符合规范导致以下字段为空
-            if project is not None:
-                repository = project.get("name")
-                branch = project.get("default_branch")
             commits = data.get("commits")
             commits_info = []
             if isinstance(commits, list):
@@ -53,7 +50,8 @@ class Adapter(Resource):
                 "repository": repository,
                 "branch": branch,
                 "commits": commits_info,
-                "name": name
+                "name": name,
+                "repository_url": repository_url
             })
             # 暂时屏蔽推送到钉钉，部署服务器测试华为云平台发送消息是否正常
             Sender.post(user_data)
