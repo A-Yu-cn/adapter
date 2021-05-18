@@ -32,7 +32,7 @@ post_data = {
         "ssh_url": "git@codehub.devcloud.huaweicloud.com:ExampleNamespace/ExampleRepository.git",
         "http_url": "https://codehub.devcloud.huaweicloud.com/ExampleNamespace/ExampleRepository.git"
     },
-    "commits": {
+    "commits": [{
         "id": "0123456789012345678901234567890123456789",
         "message": "This is an example message",
         "timestamp": "2019-05-30T08:50:37Z",
@@ -45,7 +45,8 @@ post_data = {
         ],
         "modified": [],
         "removed": []
-    },
+    }
+    ],
     "total_commits_count": 1,
     "repository": {
         "name": "ExampleRepository",
