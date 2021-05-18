@@ -28,7 +28,7 @@ class Adapter(Resource):
             repository = data.get("repository").get("name")
             repository_url = data.get("repository").get("git_http_url")
             # print(data)
-            name = data.get("user_name")
+            name = data.get("user_username")
             # 避免华为云平台推送的请求不符合规范导致以下字段为空
             commits = data.get("commits")
             commits_info = []
