@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
-from module.send import Sender
+from module.sendBuffer import sendList
+
 import json
 import logging
 from jinja2 import Template
@@ -76,9 +77,8 @@ class Adapter(Resource):
                 "name": name,
                 "repository_url": repository_url
             })
-            # 暂时屏蔽推送到钉钉，部署服务器测试华为云平台发送消息是否正常
-            #Sender.post(user_data)
-            print(user_data["markdown"]["text"])
+            # 此处插入已经完成，会启动一个线程负责发送信息
+            sendList.put(user_data)
             return {
                 "result": "ok"
             }

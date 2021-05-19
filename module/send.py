@@ -11,7 +11,5 @@ class Sender:
         try:
             r = requests.post(cls.url, json=msg)
             logging.info("Successfully send message to Ding Ding")
-            # print(r.content)
-            # print(r.status_code)
         except():
             logging.error("error")

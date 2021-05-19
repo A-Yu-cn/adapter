@@ -4,7 +4,7 @@ from flask_restful import Api
 from dotenv import find_dotenv, load_dotenv
 import os
 import logging
-
+from module.sendBuffer import run_thread
 load_dotenv(find_dotenv(), encoding="utf8")
 
 # 日志设置
@@ -24,4 +24,6 @@ if __name__ == '__main__':
     # 在某一端口运行程序
     port = os.environ.get("PORT")
     host = os.environ.get("HOST")
+    run_thread()
     app.run(port=port, host=host)
+

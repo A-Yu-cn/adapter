@@ -1,0 +1,30 @@
+from module.send import Sender
+from threading import Thread
+from queue import  Queue
+sendList = Queue()
+
+"""
+    如果全局的发送请求列表中存在数据，则直接将其发送，否则就等待
+"""
+
+
+def send_message():
+    while 1:
+        print("hello")
+        user_data = sendList.get()
+        Sender.post(user_data)
+        print(user_data)
+
+
+"""
+    启动唯一一个发送线程，监控发送列表，在需要操作时进行发送操作
+"""
+
+
+def run_thread():
+    # 需要注意只有一个发送线程因此不允许多次调用此函数
+    try:
+        t = Thread(target=send_message)
+        t.start()
+    except():
+        print("Error: 无法启动线程")
