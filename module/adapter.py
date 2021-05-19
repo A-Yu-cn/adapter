@@ -7,6 +7,25 @@ from jinja2 import Template
 import os
 
 """
+    此函数只获取字符串最前方的符合ASCII码的字符，因为中文显示有问题因此需要进行一次处理
+    输入一串字符串，返回同样是字符串
+"""
+
+
+def split_str(sentence: str) -> str:
+    res_str = ''
+    for ch in sentence:
+        if ord(ch) not in range(0, 255):
+            break
+        res_str = res_str + ch
+    return res_str
+
+
+def pack_info(sentence: str) -> str:
+    return sentence[:25] + "..."
+
+
+"""
     Adapter 用于接收程序收到的各式请求，然后进行不同的处理
     * post方法获取到华为云平台发送的webhook信息
     * 经过处理后调用Sender类的post方法将信息再发送给钉钉的机器人webhook
@@ -39,7 +58,7 @@ class Adapter(Resource):
             if isinstance(commits, list):
                 for commit in commits:
                     commits_info.append({
-                        "message": commit.get("message")[:25] + "...",
+                        "message": pack_info(split_str(commit.get("message"))),
                         "url": commit.get("url")
                     })
             # 此下定义要返回给钉钉的信息
@@ -58,8 +77,8 @@ class Adapter(Resource):
                 "repository_url": repository_url
             })
             # 暂时屏蔽推送到钉钉，部署服务器测试华为云平台发送消息是否正常
-            Sender.post(user_data)
-            # print(text)
+            #Sender.post(user_data)
+            print(user_data["markdown"]["text"])
             return {
                 "result": "ok"
             }
