@@ -46,7 +46,7 @@ class Adapter(Resource):
             user_data = {
                 "msgtype": "markdown",
                 "markdown": {
-                    "title": "代码检测",
+                    "title": "代码推送通知",
                     "text": ""
                 }
             }
