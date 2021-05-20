@@ -26,7 +26,7 @@ def pack_info(sentence: str) -> str:
 class Adapter(Resource):
 
     def __init__(self):
-        with open(os.environ.get("TEMPLATE_FILE"), 'r', encoding="utf8") as f:
+        with open(os.environ.get("PUSH_TEMPLATE_FILE"), 'r', encoding="utf8") as f:
             template = f.read()
         self.template = Template(template)
 
@@ -38,7 +38,8 @@ class Adapter(Resource):
             try:
                 repository = data.get("repository").get("name")
                 repository_url = data.get("repository").get("git_http_url")
-            except:
+            except Exception as e:
+                logging.error("get error message in adapter" + str(e))
                 repository = "None"
                 repository_url = "https://12138.site/"
             name = data.get("user_name")
@@ -67,12 +68,12 @@ class Adapter(Resource):
                 "repository_url": repository_url
             })
             # 此处插入已经完成，会启动一个线程负责发送信息
-            sendList.put(user_data)
+            sendList.put({"data": user_data, "type": 1})
             return {
                 "result": "ok"
             }
         except Exception as e:
-            logging.error(e)
+            logging.error("adapter error of unknown reasons" + str(e))
 
     @staticmethod
     def get():

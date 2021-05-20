@@ -7,7 +7,7 @@ data = {
         "text": ""
     },
     "at": {
-        "isAtAll": 'true'
+        "isAtAll": 'false'
     }
 }
 data1 = {
@@ -23,4 +23,5 @@ if __name__ == "__main__":
     text = "**代码推送通知** \n  - {name} 推送到了 {repository} / {branch} 分支 \n  - commits:{commit_info} {commit_time}".format(
         name="ayu", repository="fronted", branch="test", commit_time="", commit_info="别看了，这是测试信息")
     data["markdown"]["text"] = text
-    Sender.post(data)
+    sdata = {"data": data, "type": 3}
+    Sender.post(sdata["data"], sdata["type"])

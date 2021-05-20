@@ -14,7 +14,7 @@ sendList = Queue()
 def send_message():
     while 1:
         user_data = sendList.get()
-        Sender.post(user_data)
+        Sender.post(user_data["data"], user_data["type"])
 
 
 """
@@ -22,7 +22,7 @@ def send_message():
 """
 
 
-def run_thread():
+def run_sender():
     # 需要注意只有一个发送线程因此不允许多次调用此函数
     try:
         t = Thread(target=send_message)

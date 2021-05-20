@@ -1,10 +1,12 @@
 from flask import Flask
+
+from module.Getter import run_getter
 from module.adapter import Adapter
 from flask_restful import Api
 from dotenv import find_dotenv, load_dotenv
 import os
 import logging
-from module.sendBuffer import run_thread
+from module.sendBuffer import run_sender
 
 load_dotenv(find_dotenv(), encoding="utf8")
 
@@ -25,5 +27,6 @@ if __name__ == '__main__':
     # 在某一端口运行程序
     port = os.environ.get("PORT")
     host = os.environ.get("HOST")
-    run_thread()
+    run_getter()
+    run_sender()
     app.run(port=port, host=host)
