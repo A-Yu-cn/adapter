@@ -34,7 +34,7 @@ post_data = {
     },
     "commits": [{
         "id": "0123456789012345678901234567890123456789",
-        "message": "This is an example message",
+        "message": "This \n\n\n is an \n example\n message",
         "timestamp": "2019-05-30T08:50:37Z",
         "url": "https://codehub.devcloud.huaweicloud.com/ExampleNamespace/ExampleRepository/commit/0123456789012345678901234567890123456789",
         "author": {

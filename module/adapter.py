@@ -13,17 +13,8 @@ import os
 """
 
 
-def split_str(sentence: str) -> str:
-    res_str = ''
-    for ch in sentence:
-        if ord(ch) not in range(0, 255):
-            break
-        res_str = res_str + ch
-    return res_str
-
-
 def pack_info(sentence: str) -> str:
-    return sentence[:25] + "..."
+    return sentence[:25].replace('\n', ' ') + "..."
 
 
 """
@@ -59,7 +50,7 @@ class Adapter(Resource):
             if isinstance(commits, list):
                 for commit in commits:
                     commits_info.append({
-                        "message": pack_info(split_str(commit.get("message"))),
+                        "message": pack_info(commit.get("message")),
                         "url": commit.get("url")
                     })
             # 此下定义要返回给钉钉的信息
@@ -78,6 +69,7 @@ class Adapter(Resource):
                 "repository_url": repository_url
             })
             # 此处插入已经完成，会启动一个线程负责发送信息
+            print(user_data)
             sendList.put(user_data)
             return {
                 "result": "ok"
