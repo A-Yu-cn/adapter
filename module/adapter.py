@@ -1,7 +1,6 @@
 from flask import request
 from flask_restful import Resource
 from module.sendBuffer import sendList
-
 import json
 import logging
 from jinja2 import Template
@@ -42,7 +41,6 @@ class Adapter(Resource):
             except:
                 repository = "None"
                 repository_url = "https://12138.site/"
-            # print(data)
             name = data.get("user_name")
             # 避免华为云平台推送的请求不符合规范导致以下字段为空
             commits = data.get("commits")
@@ -69,7 +67,6 @@ class Adapter(Resource):
                 "repository_url": repository_url
             })
             # 此处插入已经完成，会启动一个线程负责发送信息
-            print(user_data)
             sendList.put(user_data)
             return {
                 "result": "ok"
@@ -79,5 +76,4 @@ class Adapter(Resource):
 
     @staticmethod
     def get():
-        # print(request.values)
         return {"data": "str"}

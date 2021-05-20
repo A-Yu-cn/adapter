@@ -5,6 +5,7 @@ from dotenv import find_dotenv, load_dotenv
 import os
 import logging
 from module.sendBuffer import run_thread
+
 load_dotenv(find_dotenv(), encoding="utf8")
 
 # 日志设置
@@ -26,4 +27,3 @@ if __name__ == '__main__':
     host = os.environ.get("HOST")
     run_thread()
     app.run(port=port, host=host)
-

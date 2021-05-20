@@ -1,6 +1,9 @@
+import logging
+
 from module.send import Sender
 from threading import Thread
-from queue import  Queue
+from queue import Queue
+
 sendList = Queue()
 
 """
@@ -10,10 +13,8 @@ sendList = Queue()
 
 def send_message():
     while 1:
-        print("hello")
         user_data = sendList.get()
         Sender.post(user_data)
-        print(user_data)
 
 
 """
@@ -25,6 +26,7 @@ def run_thread():
     # 需要注意只有一个发送线程因此不允许多次调用此函数
     try:
         t = Thread(target=send_message)
+        t.setDaemon(True)
         t.start()
-    except():
-        print("Error: 无法启动线程")
+    except Exception as e:
+        logging.error("Error: 无法启动线程" + str(e))
