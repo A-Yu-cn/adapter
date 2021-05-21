@@ -24,7 +24,7 @@ api = Api(app)
 api.add_resource(Adapter, '/api/webhook')
 
 if __name__ == '__main__':
-    # 在某一端口运行程序
+    # 在某一端口运行程序，并运行多个线程完成获取信息、发送信息的操作
     port = os.environ.get("PORT")
     host = os.environ.get("HOST")
     run_getter()

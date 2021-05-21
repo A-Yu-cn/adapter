@@ -6,24 +6,18 @@ import logging
 from jinja2 import Template
 import os
 
-"""
-    此函数只获取字符串最前方的符合ASCII码的字符，因为中文显示有问题因此需要进行一次处理
-    输入一串字符串，返回同样是字符串
-"""
 
-
+# 包装发送信息的函数
 def pack_info(sentence: str) -> str:
     return sentence[:25].replace('\n', ' ') + "..."
 
 
-"""
-    Adapter 用于接收程序收到的各式请求，然后进行不同的处理
-    * post方法获取到华为云平台发送的webhook信息
-    * 经过处理后调用Sender类的post方法将信息再发送给钉钉的机器人webhook
-"""
-
-
 class Adapter(Resource):
+    """
+        Adapter 用于接收程序收到的各式请求，然后进行不同的处理
+        * post方法获取到华为云平台发送的webhook信息
+        * 经过处理后调用Sender类的post方法将信息再发送给钉钉的机器人webhook
+    """
 
     def __init__(self):
         with open(os.environ.get("PUSH_TEMPLATE_FILE"), 'r', encoding="utf8") as f:
@@ -68,7 +62,8 @@ class Adapter(Resource):
                 "repository_url": repository_url
             })
             # 此处插入已经完成，会启动一个线程负责发送信息
-            sendList.put({"data": user_data, "type": 1})
+            if len(commits_info) != 0:
+                sendList.put({"data": user_data, "type": 1})
             return {
                 "result": "ok"
             }

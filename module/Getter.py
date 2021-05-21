@@ -12,6 +12,11 @@ load_dotenv(find_dotenv(), encoding="utf8")
 
 
 def machining(message):
+    """
+    对获取到的邮件信息进行处理，将处理后的信息放入发送队列中
+    :param message:获取到的邮箱信息
+    :return: 返回为空，直接在函数内将处理好要发送的信息封装放入发送队列了
+    """
     with open(os.environ.get("LINE_TEMPLATE_FILE"), 'r', encoding="utf8") as f:
         template = f.read()
     template = Template(template)
@@ -44,6 +49,10 @@ def machining(message):
 
 
 def getter():
+    """
+    自动从邮箱读取未读邮件，并将其置为已读防止下一次误读操作
+    :return:无
+    """
     password = os.environ.get("password")
     # IMAP服务器地址，邮箱地址，密码，是否打开SSL加密
     while 1:
@@ -64,6 +73,10 @@ def getter():
 
 
 def run_getter():
+    """
+    启动一个getter函数的线程，在主函数结束后会自动结束
+    :return:无返回值
+    """
     try:
         t = Thread(target=getter)
         t.setDaemon(True)

@@ -17,3 +17,9 @@ for ch in str_all:
 str = "this\n\n is\n an \nexample\n"
 print(str)
 print(str.replace('\n', ' '))
+
+test = [1]
+print(type(test))
+print(test)
+if len(test) != 0:
+    print("test is not null")
