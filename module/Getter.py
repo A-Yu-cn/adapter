@@ -31,21 +31,24 @@ def machining(message):
 
     # 下述操作为字符串的切割操作，首先定位到需要的部分，然后经过数次符号切割以及相对定位将所有推送需要用到的信息全部获得
     num = text.find('DevCloud软件开发云上有与您相关的“PipeLine”新动态，请查收。')
-    text = text[num + 56:num + 300]
-    str_l = text.split('[')[1].split(']')
-    line = str_l[0]
-    text = str_l[1]
-    res = text[7:9]
-    text = text.split('"')
-    link = text[1]
-    # 上述代码经过测试对华为云平台发送的信息可以完全符号
+    if num == -1:  # 无法匹配字符串代表发送的不是流水线相关信息，直接跳过即可。
+        return
+    else:
+        text = text[num + 56:num + 300]
+        str_l = text.split('[')[1].split(']')
+        line = str_l[0]
+        text = str_l[1]
+        res = text[7:9]
+        text = text.split('"')
+        link = text[1]
+        # 上述代码经过测试对华为云平台发送的信息可以完全符号
 
-    data["markdown"]["text"] = template.render({
-        "stream_line": line,
-        "res": res,
-        "link": link
-    })
-    sendList.put({"data": data, "type": 2})
+        data["markdown"]["text"] = template.render({
+            "stream_line": line,
+            "res": res,
+            "link": link
+        })
+        sendList.put({"data": data, "type": 2})
 
 
 def getter():
