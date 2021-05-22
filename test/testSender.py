@@ -1,4 +1,5 @@
 from module.send import Sender
+import logging
 
 data = {
     "msgtype": "markdown",
@@ -24,4 +25,7 @@ if __name__ == "__main__":
         name="ayu", repository="fronted", branch="test", commit_time="", commit_info="别看了，这是测试信息")
     data["markdown"]["text"] = text
     sdata = {"data": data, "type": 3}
-    Sender.post(sdata["data"], sdata["type"])
+    try:
+        Sender.post(sdata["data"], sdata["type"])
+    except Exception as e:
+        logging.error(e)

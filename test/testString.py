@@ -15,7 +15,6 @@ for ch in str_all:
 # print(str_need)
 
 str = "this\n\n is\n an \nexample\n"
-print(str)
 print(str.replace('\n', ' '))
 
 test = [1]

@@ -1,4 +1,5 @@
 import requests
+import logging
 
 post_data = {
     "object_kind": "push",
@@ -59,6 +60,8 @@ post_data = {
     }
 }
 if __name__ == "__main__":
-    url = "http://localhost:666/api/webhook"
-    res = requests.post(url=url, json=post_data)
-    print(res.text)
+    try:
+        url = "http://localhost:666/api/webhook"
+        res = requests.post(url=url, json=post_data)
+    except Exception as e:
+        logging.error(e)
