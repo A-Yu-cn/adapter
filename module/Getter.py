@@ -42,7 +42,7 @@ def machining(message):
         text = text.split('"')
         link = text[1]
         # 上述代码经过测试对华为云平台发送的信息可以完全符号
-        data["title"] = "流水线通知:生成" + res
+        data["markdown"]["title"] = "流水线通知:生成" + res
         data["markdown"]["text"] = template.render({
             "stream_line": line,
             "res": res,
