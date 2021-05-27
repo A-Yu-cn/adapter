@@ -1,5 +1,4 @@
-import requests
-import logging
+import requests, logging
 
 post_data = {
     "object_kind": "push",
